@@ -5,7 +5,7 @@
     - name: Ensure app directory exists 
       file:
         path:/var/lib/jenkins/workspace/maven deploy/maven-example/target
-        state: jenkins
+        state: directory
         owner: jenkins
         group: jenkins
         mode:'0755'
