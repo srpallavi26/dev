@@ -1,12 +1,10 @@
 - name: Deploy Maven Artifact
   hosts: web
-  gather_facts: no
   become: yes
+  gather_facts: no   # optional, disables fact gathering if you don’t need it
   tasks:
     - name: Copy JAR file
-      copy:
-        src: maven-example/target/maven-example-1.0-SNAPSHOT.jar
-        dest: /opt/maven-example-1.0-SNAPSHOT.jar
+      command: sudo cp /var/lib/jenkins/workspace/maven deploy/maven-example/target/maven-example-1.0-SNAPSHOT.jar /opt/maven-example-1.0-SNAPSHOT.jar
 
     - name: Run application
-      shell: nohup java -jar /opt/maven-example-1.0-SNAPSHOT.jar &
+      command: sudo java -jar /opt/maven-example-1.0-SNAPSHOT.jar &
