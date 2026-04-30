@@ -1,19 +1,15 @@
-- name: Deploy Maven Artifact
-  hosts: web
-  gather_facts: no
-  tasks:
-    - name: Ensure app directory exists 
-      file:
-        path: /var/lib/jenkins/workspace/maven deploy
-        owner: jenkins
-        group: jenkins
-        mode:'0755'
-    - name: Copy JAR file
-    copy:
-      src: /var/lib/jenkins/workspace/maven deploy/maven-example/target/maven-example-1.0-SNAPSHOT.jar
-      dest: /var/lib/jenkins/workspace/maven deploy/maven-example/target/maven-example-1.0-SNAPSHOT.jar
+- name: Ensure deployment directory exists
+  file:
+    path: /var/lib/jenkins/workspace/maven deploy
+    owner: jenkins
+    group: jenkins
+    state: directory
+    mode: '0755'
 
-    - name: Run application
-      shell: nohup java -jar /var/lib/jenkins/workspace/maven deploy/maven-example/target/maven-example-1.0-SNAPSHOT.jar &
-      args:
-        chdir:/var/lib/jenkins/workspace/maven deploy/maven-example/target
+- name: Copy JAR file
+  copy:
+    src: /var/lib/jenkins/workspace/maven deploy/maven-example/target/maven-example-1.0-SNAPSHOT.jar
+    dest: /opt/maven-example/maven-example-1.0-SNAPSHOT.jar
+    owner: jenkins
+    group: jenkins
+    mode: '0644'
