@@ -4,7 +4,7 @@
   tasks:
     - name: Ensure app directory exists 
       file:
-        path:/var/lib/jenkins/workspace/maven deploy
+        path: /var/lib/jenkins/workspace/maven deploy
         owner: jenkins
         group: jenkins
         mode:'0755'
