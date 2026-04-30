@@ -1,9 +1,9 @@
 - hosts: all
-  become: false
+  gather_facts: no
   tasks:
     - name: Ensure deployment directory exists
       file:
-        path: /var/lib/jenkins/workspace/maven deploy
+        path: /var/lib/jenkins/workspace/maven-example-deploy
         owner: jenkins
         group: jenkins
         state: directory
@@ -12,8 +12,7 @@
     - name: Copy JAR file
       copy:
         src: /var/lib/jenkins/workspace/maven deploy/maven-example/target/maven-example-1.0-SNAPSHOT.jar
-        dest: /opt/maven-example/maven-example-1.0-SNAPSHOT.jar
+        dest: /var/lib/jenkins/workspace/maven-example-deploy/maven-example-1.0-SNAPSHOT.jar
         owner: jenkins
         group: jenkins
         mode: '0644'
-
